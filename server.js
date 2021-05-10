@@ -41,10 +41,11 @@ app.route("/").get(function(req, res) {
 fccTestingRoutes(app);
 
 //Routing for API
-apiRoutes(app);
+app.use("/api", apiRoutes);
 
 //404 Not Found Middleware
 app.use(function(req, res, next) {
+  console.log("not found");
   res
     .status(404)
     .type("text")
