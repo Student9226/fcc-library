@@ -1,6 +1,25 @@
+const Book = require("../models/models").Book;
+// const Comments = require("../models/models").Comments;
+
 const bookController = {
   createBook: (req, res) => {
-    console.log("create");
+    const title = req.body.title;
+    if (!title) {
+      return res.json("missing required field title");
+    }
+    const bookToBeCreated = new Book({
+      title
+    });
+
+    bookToBeCreated.save((err, data) => {
+      if (err) {
+        return console.error(err);
+      } else {
+        const { _id, title } = data;
+        const result = { _id, title };
+        res.json(result);
+      }
+    });
   },
   getBookList: (req, res) => {
     console.log("view");
