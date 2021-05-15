@@ -5,7 +5,8 @@ const commentsSchema = new Schema({
 });
 const bookSchema = new Schema({
   title: { type: String, required: true },
-  comments: [commentsSchema]
+  comments: [commentsSchema],
+  commentcount: { type: Number, default: 0 }
 });
 
 module.exports.Book = mongoose.model("book", bookSchema);
