@@ -22,7 +22,12 @@ const bookController = {
     });
   },
   getBookList: (req, res) => {
-    console.log("view");
+    Book.find((err, books) => {
+      if (err) {
+        return console.error(err);
+      }
+      return res.json(books);
+    });
   },
   deleteAllBooks: (req, res) => {
     console.log("delete ALL");
