@@ -13,7 +13,7 @@ const router = require("express").Router();
 router.get("/books", bookController.getBookList);
 router.post("/books", bookController.createBook);
 router.delete("/books", bookController.deleteAllBooks);
-router.post("/books/:id", bookController.getBookDetail);
+router.get("/books/:id", bookController.getBookDetail);
 router.post("/books/:id", bookController.commentOnBook);
 router.delete("/books/:id", bookController.deleteBookById);
 

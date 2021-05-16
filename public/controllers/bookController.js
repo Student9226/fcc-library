@@ -38,9 +38,25 @@ const bookController = {
         console.log(err);
       });
   },
+  commentOnBook: async (req, res) => {
+    const comment = req.body.comment;
+    const _id = req.body.id;
 
-  commentOnBook: (req, res) => {
-    console.log("comment");
+    Book.findById(_id, (err, book) => {
+      if (!err) {
+        book.comments.push(comment);
+        book.commentcount += 1;
+        book.save((err, data) => {
+          if (err) {
+            res.send("an error occured while commenting.");
+          } else {
+            res.json(book);
+          }
+        });
+      } else {
+        console.log(err);
+      }
+    });
   },
   deleteBookById: (req, res) => {
     console.log("deleteId");
