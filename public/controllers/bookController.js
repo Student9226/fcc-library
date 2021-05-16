@@ -30,8 +30,15 @@ const bookController = {
     });
   },
   deleteAllBooks: (req, res) => {
-    console.log("delete ALL");
+    Book.deleteMany({})
+      .then(() => {
+        console.log("all books deleted");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
+
   commentOnBook: (req, res) => {
     console.log("comment");
   },
