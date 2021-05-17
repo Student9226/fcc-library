@@ -1,5 +1,4 @@
 const Book = require("../models/models").Book;
-// const Comments = require("../models/models").Comments;
 
 const bookController = {
   createBook: (req, res) => {
@@ -41,16 +40,21 @@ const bookController = {
   commentOnBook: async (req, res) => {
     const comment = req.body.comment;
     const _id = req.body.id;
-
+    if (!comment) {
+      return res.send("missing required field comment");
+    }
     Book.findById(_id, (err, book) => {
       if (!err) {
+        if (!book) {
+          return res.send("no book exists");
+        }
         book.comments.push(comment);
         book.commentcount += 1;
         book.save((err, data) => {
           if (err) {
-            res.send("an error occured while commenting.");
+            return res.send(err);
           } else {
-            res.json(book);
+            return res.json(book);
           }
         });
       } else {
