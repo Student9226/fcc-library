@@ -31,7 +31,7 @@ const bookController = {
   deleteAllBooks: (req, res) => {
     Book.deleteMany({})
       .then(() => {
-        console.log("all books deleted");
+        res.json("complete delete successful");
       })
       .catch(err => {
         console.log(err);
@@ -39,7 +39,7 @@ const bookController = {
   },
   commentOnBook: async (req, res) => {
     const comment = req.body.comment;
-    const _id = req.body.id;
+    const _id = req.params.id;
     if (!comment) {
       return res.send("missing required field comment");
     }
@@ -62,11 +62,16 @@ const bookController = {
       }
     });
   },
-  deleteBookById: (req, res) => {
-    console.log("deleteId");
-  },
   getBookDetail: (req, res) => {
-    console.log("detaillsss");
+    const _id = req.params.id;
+    Book.findById(_id, (err, book) => {
+      if (!err) {
+        res.json(book);
+      }
+    });
+  },
+  deleteBookById: (req, res) => {
+    console.log("deleteId", req.body);
   }
 };
 
