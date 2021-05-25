@@ -65,8 +65,10 @@ const bookController = {
   getBookDetail: (req, res) => {
     const _id = req.params.id;
     Book.findById(_id, (err, book) => {
-      if (!err) {
-        res.json(book);
+      if (!book) {
+        return res.json("no book exists");
+      } else if (!err) {
+        return res.json(book);
       }
     });
   },
